@@ -214,21 +214,24 @@ function AuthProvider({ children }: AuthProviderProps) {
             const userRef = doc(db, "users", uid);
             await setDoc(userRef, {
                 name,
-                email
+                email,
+                favorites: []
             });
     
             // Atualiza o estado com o novo usuário
             setUser({
                 id: uid,
                 name,
-                email
+                email,
+                favorites: []
             });
     
             // Salva o usuário no AsyncStorage
             await AsyncStorage.setItem(USER_COLLECTION, JSON.stringify({
                 id: uid,
                 name,
-                email
+                email,
+                favorites: []
             }));
     
             setIsLoadingRegisterUser(false);
