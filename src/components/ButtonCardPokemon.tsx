@@ -44,9 +44,9 @@ export function ButtonCardPokemon({ idPokemon, title, color='blueButton', ...res
                 <HStack alignItems={'center'} justifyContent={'space-between'} width={'100%'}>    
                     <Text
                         fontFamily={'heading'}
-                        fontSize={18}
+                        fontSize={22}
                         color={'gray.100'}
-                    >{title}</Text>
+                    >{title.charAt(0).toUpperCase() + title.slice(1)}</Text>
                     <Image 
                         source={{uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${idPokemon}.png`}} 
                         alt="Pokeapi Image" 
