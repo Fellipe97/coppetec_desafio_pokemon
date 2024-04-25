@@ -5,7 +5,7 @@ import { DocumentSnapshot } from 'firebase/firestore'; */
 import axios from 'axios'
 
 
-const POKEAPI = ' https://pokeapi.co/api/v2';
+const POKEAPI = 'https://pokeapi.co/api/v2';
 
 
 //fazer um para firebase e outro para o pokemon

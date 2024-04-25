@@ -109,6 +109,7 @@ export function Pokedex() {
     const [isLoading, setIsLoading] = useState(true);
     const [selectedType, setSelectedType] = useState<string | null>(null);
 
+
     const handleGetAllPokemons = async () => {
         try {
             setIsLoading(true);
@@ -134,6 +135,7 @@ export function Pokedex() {
     useEffect(() => {
         if (isFocused) {
             handleGetAllPokemons();
+            setSelectedType(null)
         }
     }, [isFocused]);
 
@@ -161,7 +163,7 @@ export function Pokedex() {
             {/* header go back */}
             <Header
                 title="Pokédex"
-                buttonBack
+                buttonBack={!isLoading}
             />
 
             {isLoading &&
