@@ -44,7 +44,7 @@ interface DetailPokemonProps {
 }
 
 export function DetailPokemon({ route }: DetailPokemonProps) {
-    const { id } = route.params; // Acessando o ID passado como parâmetro
+    const { id } = route.params;
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
