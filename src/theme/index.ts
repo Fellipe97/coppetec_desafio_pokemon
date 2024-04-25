@@ -13,14 +13,15 @@ export const THEME = extendTheme(
             gray: {
                 500: '#9F9F9F',
                 200: '#797979', //icone
-                100: '#F1F3F5', //background
+                100: '#F1F3F5', //background //usando
             },
             white: '#FFFFFF',
             black: '#000000',
             red: {
                 700: '#F01A31', //E76161
-                600: '#F75A68', //E76161
-                500: '#E4757E', //E76161
+                600: '#EF5350', //E76161  //usando
+                500: '#F75A68', //E76161
+                400: '#E4757E', //E76161
             },
             purple: {
                 700: '#5A3AA5',
@@ -29,7 +30,8 @@ export const THEME = extendTheme(
                 400: '#9973f0',
             },
             blue: {
-                600: '#78AEFF',
+                700: '#3761A8', //usando
+                600: '#507DCA',
                 500: '#91B6EF'
             },
             orange: {

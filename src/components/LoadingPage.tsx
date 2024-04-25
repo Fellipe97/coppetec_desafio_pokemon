@@ -1,13 +1,12 @@
 import {Spinner, Center, Image} from 'native-base'
 
-/* import LogoSvg from '@assets/logo.svg'
- */
+import Pokeapi from '../assets/pokeapi.png'
 
 export function LoadingPage(){
     return(
-        <Center flex={1} bg={'blue.300'}>
-            {/* <LogoSvg /> */}
-            <Spinner color="purple.600" size='lg' mt={8}/>
+        <Center flex={1} bg={'gray.100'}>
+            <Image source={Pokeapi} alt="Pokeapi Image"  mt={8} />
+            <Spinner color="blue.029600" size='lg' mt={8}/>
         </Center>
     );
 }
