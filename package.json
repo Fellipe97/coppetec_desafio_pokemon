@@ -17,8 +17,10 @@
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "@react-navigation/stack": "^6.3.29",
+    "axios": "^1.6.8",
     "expo": "~50.0.14",
     "expo-font": "~11.10.3",
+    "expo-linear-gradient": "~12.7.2",
     "expo-status-bar": "~1.11.1",
     "firebase": "^10.11.0",
     "native-base": "^3.4.28",
@@ -29,8 +31,7 @@
     "react-native-screens": "~3.29.0",
     "react-native-svg": "14.1.0",
     "undefined": "@expo-google-fonts/Press+Start+2P",
-    "yup": "^1.4.0",
-    "expo-linear-gradient": "~12.7.2"
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

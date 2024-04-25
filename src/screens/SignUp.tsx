@@ -4,7 +4,7 @@ import { Image, KeyboardAvoidingView, Text, VStack, ScrollView, useToast } from 
 import { Button } from "../components/Button";
 import { useAuth } from "../hooks/auth";
 
-import { StackAuthNavigatorRoutesProps } from '../routes/stackApp.routes'
+import { StackAppNavigationProp } from '../routes/stackApp.routes'
 import { useNavigation } from '@react-navigation/native'
 import { Header } from "../components/Header";
 
@@ -46,7 +46,7 @@ const signUpSchema = yup.object({
 export function SignUp() {
     const toast = useToast();
     const { registerUser, isLoadingRegisterUser } = useAuth()
-    const navigation = useNavigation<StackAuthNavigatorRoutesProps>();
+    const navigation = useNavigation<StackAppNavigationProp>();
     const passwordRef = useRef<TextInput>(null)
     const emailRef = useRef<TextInput>(null)
     const confirmPasswordRef = useRef<TextInput>(null)

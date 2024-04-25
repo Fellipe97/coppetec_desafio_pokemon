@@ -5,15 +5,16 @@ import { Button } from "../components/Button";
 import { useAuth } from "../hooks/auth";
 
 
-import { StackAuthNavigatorRoutesProps } from '../routes/stackApp.routes'
+import { StackAppNavigationProp } from '../routes/stackApp.routes'
 import { useNavigation } from '@react-navigation/native'
 import { useEffect } from "react";
 import { HeaderHome } from '../components/HeaderHome';
+import { ButtonCardMenu } from '../components/ButtonCardMenu';
 //() => navigation.navigate('frequency')
 
 export function Home() {
     const { signOut, user } = useAuth()
-    const navigation = useNavigation<StackAuthNavigatorRoutesProps>();
+    const navigation = useNavigation<StackAppNavigationProp>();
 
 
     useEffect(() => {
@@ -26,14 +27,18 @@ export function Home() {
                 nameUser={user!.name.split(" ")[0]}
             />
 
-            <VStack flex={1}>
-                <Center>
-                    <Text>HOME</Text>
-                    <Button
-                        title="Sair"
-                        onPress={() => signOut()}
-                    />
-                </Center>
+            <VStack  px={12} flex={1} py={18} alignItems={'center'}>
+                
+                  <ButtonCardMenu 
+                    title='Favoritos'
+                    color={'blueButton'}
+                    mb={4}
+                  />
+                  <ButtonCardMenu 
+                    title='Pokedex'
+                    color={'redButton'}
+                    onPress={() => navigation.navigate('pokedex')}
+                  />
             </VStack>
         </KeyboardAvoidingView>
     )
