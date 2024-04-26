@@ -3,6 +3,13 @@ import { getDoc, getDocs, doc, collection, addDoc, serverTimestamp, query, where
 import { signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'firebase/auth';
 import { DocumentSnapshot } from 'firebase/firestore'; */
 import axios from 'axios'
+import { auth, db } from '../config/firebase';
+import firebase from 'firebase/app';
+
+
+import { getDoc, doc, setDoc, collection, updateDoc } from 'firebase/firestore';
+import { signInWithEmailAndPassword, signOut, sendPasswordResetEmail, createUserWithEmailAndPassword, EmailAuthProvider, reauthenticateWithCredential, updatePassword } from 'firebase/auth';
+
 
 
 const POKEAPI = 'https://pokeapi.co/api/v2';
@@ -23,6 +30,33 @@ const Api = {
 
 
     //APIFIREBASE
+    favoritePokemon: async (userId: string, favorites: number[]) => {
+        try {
+            const userRef = doc(db, "users", userId);
+    
+            await updateDoc(userRef, {
+                favorites: favorites
+            });
+            return true; 
+        } catch (error) {
+            console.error('Error adding favorite:', error);
+            return false; 
+        }
+    },
+    
+    unfavoritePokemon: async (userId: string, favorites: number[]) => {
+        try {
+            const userRef = doc(db, "users", userId);
+            await updateDoc(userRef, {
+                favorites: favorites
+            });
+            return true; 
+        } catch (error) {
+            console.error('Error removing favorite:', error);
+            return false; 
+        }
+    }
+    
 }
 
 

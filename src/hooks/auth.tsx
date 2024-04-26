@@ -11,15 +11,16 @@ import { auth, db } from '../config/firebase';
 import { getDoc, doc, setDoc } from 'firebase/firestore';
 import { signInWithEmailAndPassword, signOut, sendPasswordResetEmail, createUserWithEmailAndPassword, EmailAuthProvider, reauthenticateWithCredential, updatePassword } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Api from "../helpers/Api";
 
 
 
 
-type User = {
+export type User = {
     id: string;
     email: string;
     name: string;
-    favorites?: string[];
+    favorites: number[];
 }
 
 type AuthContextData = {
@@ -28,6 +29,8 @@ type AuthContextData = {
     redefinePassword: (email: string) => Promise<void>;
     redefinePasswordLogged: (oldPassword: string, newPassword: string) => Promise<void>;
     registerUser: (name: string, email: string, password: string) => Promise<{ success: string, error: string }>;
+    userFavoritePokemon: (favorites: number[]) => Promise<boolean>;
+    userUnfavoritePokemon: (favorites: number[]) => Promise<boolean>;
     user: User | null;
     isLoadingSigIn: boolean;
     isLoadingStorage: boolean;
@@ -44,6 +47,7 @@ const USER_COLLECTION = '@ufrjPokemon:users';
 export const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
+    const api = Api()
     const toast = useToast();
     const [user, setUser] = useState<User | null>(null)
     const [isLoadingSigIn, setIsLoadingSigIn] = useState(false)
@@ -161,7 +165,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         setUser(null)
     }
 
-    async function redefinePassword(email: string) {
+    async function redefinePassword(email: string) { 
         toast.closeAll();
         setIsLoadingRedefinePassword(true)
         sendPasswordResetEmail(auth, email)
@@ -200,16 +204,16 @@ function AuthProvider({ children }: AuthProviderProps) {
                 () => setIsLoadingRedefinePassword(false)
             );
 
-    } 
+    }
 
 
-    async function registerUser(name:string, email: string, password: string) {
+    async function registerUser(name: string, email: string, password: string) {
         try {
             setIsLoadingRegisterUser(true)
             // Cria o usuário na autenticação
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const uid = userCredential.user.uid;
-    
+
             // Salva os dados no Firestore
             const userRef = doc(db, "users", uid);
             await setDoc(userRef, {
@@ -217,7 +221,7 @@ function AuthProvider({ children }: AuthProviderProps) {
                 email,
                 favorites: []
             });
-    
+
             // Atualiza o estado com o novo usuário
             setUser({
                 id: uid,
@@ -225,7 +229,7 @@ function AuthProvider({ children }: AuthProviderProps) {
                 email,
                 favorites: []
             });
-    
+
             // Salva o usuário no AsyncStorage
             await AsyncStorage.setItem(USER_COLLECTION, JSON.stringify({
                 id: uid,
@@ -233,7 +237,7 @@ function AuthProvider({ children }: AuthProviderProps) {
                 email,
                 favorites: []
             }));
-    
+
             setIsLoadingRegisterUser(false);
             return { success: 'Usuário registrado com sucesso!', error: '' };
         } catch (error) {
@@ -242,7 +246,58 @@ function AuthProvider({ children }: AuthProviderProps) {
             return { success: '', error: 'Erro ao registrar usuário. Tente novamente.' };
         }
     }
-    
+
+    async function userFavoritePokemon(favorites: (number[])) {
+
+        try {
+            if (user) {
+                setUser({
+                    id: user.id,
+                    email: user.email,
+                    name: user.name,
+                    favorites: favorites
+                })
+                await AsyncStorage.setItem(USER_COLLECTION, JSON.stringify({
+                    id: user.id,
+                    email: user.email,
+                    name: user.name,
+                    favorites: favorites
+                }))
+                return await api.favoritePokemon(user.id, favorites)
+            } else {
+                return false
+            }
+        } catch (error) {
+            return false
+        }
+    }
+
+    async function userUnfavoritePokemon(favorites: number[]) {
+        try {
+            console.log('favorites:' ,favorites)
+            if (user) {
+                setUser({
+                    id: user.id,
+                    email: user.email,
+                    name: user.name,
+                    favorites: favorites
+                })
+                await AsyncStorage.setItem(USER_COLLECTION, JSON.stringify({
+                    id: user.id,
+                    email: user.email,
+                    name: user.name,
+                    favorites: favorites
+                }))
+
+                return await api.unfavoritePokemon(user.id, favorites)
+            } else {
+                return false
+            }
+        } catch (error) {
+            return false
+        }
+    }
+
 
     async function redefinePasswordLogged(oldPassword: string, newPassword: string) {
         toast.closeAll();
@@ -332,6 +387,8 @@ function AuthProvider({ children }: AuthProviderProps) {
             redefinePassword,
             redefinePasswordLogged,
             registerUser,
+            userFavoritePokemon,
+            userUnfavoritePokemon,
             user,
             isLoadingSigIn,
             isLoadingStorage,
