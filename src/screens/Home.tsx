@@ -33,6 +33,7 @@ export function Home() {
                     title='Favoritos'
                     color={'blueButton'}
                     mb={4}
+                    onPress={() => navigation.navigate('favorites')}
                   />
                   <ButtonCardMenu 
                     title='Pokedex'
