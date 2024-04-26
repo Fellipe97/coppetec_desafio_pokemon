@@ -1,0 +1,6 @@
+No terminal executa o comando para instalar as bibliotecas:
+npm install
+
+
+Para rodar a aplicação rode:
+npm start

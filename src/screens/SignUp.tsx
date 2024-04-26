@@ -82,7 +82,14 @@ export function SignUp() {
                 }
             })
             .catch((error) => {
-                // Faça algo se houver um erro na chamada de registerUser
+                console.log(error)
+                toast.show({
+                    title: 'Error',
+                    description: 'Não foi possível cadastrar o usuário.',
+                    placement: 'top',
+                    bgColor: 'red.500'
+                })
+                navigation.goBack()
             });
     }
 
