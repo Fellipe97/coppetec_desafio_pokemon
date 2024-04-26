@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { TextInput, Platform, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { TextInput, Platform, Keyboard, TouchableWithoutFeedback, Alert } from 'react-native';
 import { Image, KeyboardAvoidingView, Text, VStack, ScrollView, useToast } from "native-base";
 import { Button } from "../components/Button";
 import { useAuth } from "../hooks/auth";
@@ -60,6 +60,8 @@ export function SignUp() {
     });
 
     function handleSignUp({ name, email, password, confirmPassword }: FormDataPropsSignUp) {
+        Alert.alert('Créditos', 'Todos os créditos são para o site https://pokeapi.co/, que forneceu todas as informações utilizadas neste projeto, sendo utilizado exclusivamente para fins educacionais.')
+
         toast.closeAll();
         registerUser(name, email, password)
             .then((json) => {

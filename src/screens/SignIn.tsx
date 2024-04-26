@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRef } from 'react';
-import { TextInput, Platform, TouchableWithoutFeedback, Keyboard, } from 'react-native';
+import { TextInput, Platform, TouchableWithoutFeedback, Keyboard, Alert, } from 'react-native';
 
 import { VStack, HStack, Text, Center, Actionsheet, useDisclose, KeyboardAvoidingView, useToast, Image } from 'native-base'
 
@@ -71,6 +71,7 @@ export function SignIn() {
         redefinePassword(email)
         onClose()
     }
+    
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
