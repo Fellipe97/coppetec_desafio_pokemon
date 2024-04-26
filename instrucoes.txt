@@ -1,6 +1,7 @@
-No terminal executa o comando para instalar as bibliotecas:
-npm install
-
-
-Para rodar a aplicação rode:
-npm start
+como rodar o aplicativo?
+1 - abra o terminal na raiz do programa
+2- abra o seu emulador de andoid ou ios
+3 - roda o comando para instalar as bibliotecas:
+          npm install
+4 - roda o comando para startar a aplicação
+          npm start
